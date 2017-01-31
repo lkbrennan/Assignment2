@@ -19,8 +19,8 @@ class Player
     tank.strokeWeight(1);
     tank.vertex(x-25,y-10);
     tank.vertex(x-5,y-10);
-    tank.vertex(x-5,y-30);
-    tank.vertex(x+5,y-30);
+    tank.vertex(x-5,y-20);
+    tank.vertex(x+5,y-20);
     tank.vertex(x+5,y-10);
     tank.vertex(x+25,y-10);
     tank.vertex(x+25,y+10);

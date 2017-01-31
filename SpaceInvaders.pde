@@ -83,22 +83,34 @@ void keyPressed()
     }
     if(key == 'a')
     {
-      playerx -= 10;
+      if(playerx > 20)
+      {
+        playerx -= 10;
+      }
     }
     if(key == 'd')
     {
-      playerx += 10;
+      if(playerx < width-20)
+      {
+        playerx += 10;
+      }
     }
   }
   if(key == CODED)
   {
     if(keyCode == LEFT)
     {
-      playerx -= 10;
+      if(playerx > 20)
+      {
+        playerx -= 10;
+      }
     }
     if(keyCode == RIGHT)
     {
-      playerx += 10;
+      if(playerx < width-20)
+      {
+        playerx += 10;
+      }
     }
   }
 }//end key checking
