@@ -7,6 +7,8 @@ Date: 6/2/2017
 PFont NameFont;
 PFont OptionFont;
 
+Player player;
+
 void setup()
 {
   size(500,500);
@@ -14,9 +16,13 @@ void setup()
   NameFont = createFont("AR DESTINE",55);
   OptionFont = createFont("AR DESTINE",35);
   
+  player = new Player();
+  
 }
 
 int userMenu = 0;
+int playerx = 220;
+
 
 void draw()
 {
@@ -26,20 +32,20 @@ void draw()
   {
     displayMenu();
   }
-  if(userMenu != 0)
+  else
   {
-  switch(userMenu)
-  {
-    case 1:
-    
-      break;
-    case 2:
-      //scores.see
-      break;
-    case 3:
-      //how to play
-      break;
-  } //end switch */
+    switch(userMenu)
+    {
+      case 1:
+        player.update(playerx);
+        break;
+      case 2:
+        //scores.see
+        break;
+      case 3:
+        //how to play
+        break;
+    } //end switch */
   }
   println(userMenu);
 }
@@ -61,16 +67,38 @@ void displayMenu()
 
 void keyPressed()
 {
-  if(key == '1')
+  if(key != CODED)
   {
-    userMenu = 1;
+    if(key == '1')
+    {
+      userMenu = 1;
+    }
+    if(key == '2')
+    {
+      userMenu = 2;
+    }
+    if(key == '3')
+    {
+      userMenu = 3;
+    }
+    if(key == 'a')
+    {
+      playerx -= 10;
+    }
+    if(key == 'd')
+    {
+      playerx += 10;
+    }
   }
-  if(key == '2')
+  if(key == CODED)
   {
-    userMenu = 2;
-  }
-  if(key == '3')
-  {
-    userMenu = 3;
+    if(keyCode == LEFT)
+    {
+      playerx -= 10;
+    }
+    if(keyCode == RIGHT)
+    {
+      playerx += 10;
+    }
   }
 }//end key checking
