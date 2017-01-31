@@ -22,32 +22,16 @@ void draw()
 {
   background(0);
   
-  if(keyPressed)
-  {
-    if(key == 1)
-    {
-      userMenu = 1;
-    }
-    if(key == 2)
-    {
-      userMenu = 2;
-    }
-    if(key == 3)
-    {
-      userMenu = 3;
-    }
-  }
-  
   if(userMenu == 0)
   {
     displayMenu();
   }
   if(userMenu != 0)
   {
-  /*switch(userMenu)
+  switch(userMenu)
   {
     case 1:
-      background
+    
       break;
     case 2:
       //scores.see
@@ -62,6 +46,7 @@ void draw()
 
 void displayMenu()
 {
+  background(0);
   textFont(NameFont);
   fill(255);
   textAlign(CENTER);
@@ -74,22 +59,18 @@ void displayMenu()
   text("3. How to Play", 250,400);
 }
 
-/*void keyPressed()
+void keyPressed()
+{
+  if(key == '1')
   {
-    if(key == 1)
-    {
-      userMenu = 1;
-    }
-    if(key == 2)
-    {
-      userMenu = 1;
-    }
-    if(key == 3)
-    {
-      userMenu = 3;
-    }
-    else
-    {
-      userMenu = 0;
-    }
-  }//end key checking*/
+    userMenu = 1;
+  }
+  if(key == '2')
+  {
+    userMenu = 2;
+  }
+  if(key == '3')
+  {
+    userMenu = 3;
+  }
+}//end key checking
