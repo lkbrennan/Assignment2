@@ -1,4 +1,4 @@
-class Player 
+class Player extends Health
 { 
   int x,y;
   PShape tank;

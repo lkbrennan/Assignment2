@@ -1,4 +1,4 @@
-class Shelter 
+class Shelter extends Health
 {
   PShape shelters;
   
