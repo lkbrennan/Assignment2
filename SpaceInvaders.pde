@@ -20,16 +20,17 @@ void setup()
   
   player = new Player();
   shelter = new ArrayList<Shelter>();
-  shelter.add(new Shelter(100,400));
-  shelter.add(new Shelter(200,400));
-  shelter.add(new Shelter(300,400));
-  shelter.add(new Shelter(400,400));
+  shelter.add(new Shelter());
+  shelter.add(new Shelter());
+  shelter.add(new Shelter());
+  shelter.add(new Shelter());
   
 }
 
 int userMenu = 0;
 int playerx = 220;
 
+int[] shelterx = {50,170,290,410};
 
 void draw()
 {
@@ -45,6 +46,11 @@ void draw()
     {
       case 1:
         player.update(playerx);
+        for(int i=0;i<shelter.size();i++)
+        {
+          Shelter s = shelter.get(i);
+          s.update(shelterx[i],400);
+        }
         break;
       case 2:
         //scores.see
@@ -53,7 +59,7 @@ void draw()
         //how to play
         break;
     } //end switch */
-  }
+  }//end else
   println(userMenu);
 }
 

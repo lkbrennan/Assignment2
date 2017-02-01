@@ -1,4 +1,4 @@
-class Player
+class Player 
 { 
   int x,y;
   PShape tank;
@@ -30,7 +30,6 @@ class Player
   
   void update(int playerx)
   {
-    
     shape(tank,playerx,450);
   }
 }
