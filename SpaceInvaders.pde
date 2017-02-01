@@ -9,6 +9,8 @@ PFont OptionFont;
 
 Player player;
 
+ArrayList<Shelter> shelter;
+
 void setup()
 {
   size(500,500);
@@ -17,6 +19,11 @@ void setup()
   OptionFont = createFont("AR DESTINE",35);
   
   player = new Player();
+  shelter = new ArrayList<Shelter>();
+  shelter.add(new Shelter(100,400));
+  shelter.add(new Shelter(200,400));
+  shelter.add(new Shelter(300,400));
+  shelter.add(new Shelter(400,400));
   
 }
 
