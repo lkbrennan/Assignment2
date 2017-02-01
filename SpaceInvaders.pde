@@ -4,12 +4,25 @@ Student Number: C15434102
 Date: 6/2/2017
 */
 
+/*
+TO DO
+1. create enemies
+2. create bullet
+3. Health
+4. scores
+5. file saving and reading
+6. how to play screen
+7. power ups maybe?
+*/
+
+
 PFont NameFont;
 PFont OptionFont;
 
 Player player;
 
 ArrayList<Shelter> shelter;
+ArrayList<Enemies> enemy;
 
 void setup()
 {
@@ -20,11 +33,19 @@ void setup()
   
   player = new Player();
   shelter = new ArrayList<Shelter>();
-  shelter.add(new Shelter());
-  shelter.add(new Shelter());
-  shelter.add(new Shelter());
-  shelter.add(new Shelter());
+  enemy= new ArrayList<Enemies>();
   
+  for(int i=0;i<4;i++)
+  {
+    Shelter s = new Shelter();
+    shelter.add(s);
+  }
+  
+  for(int i=0;i<35;i++)
+  {
+    Enemies enemies=new Enemies();
+    enemy.add(enemies);
+  }
 }
 
 int userMenu = 0;
