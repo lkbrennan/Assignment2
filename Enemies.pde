@@ -13,14 +13,14 @@ class Enemies
     enemies.beginShape();
     enemies.stroke(255);
     enemies.fill(255);
-    enemies.vertex(-15,-15)
+    enemies.vertex(-15,-15);
     enemies.vertex(15,-15);
     enemies.vertex(0,15);
     enemies.endShape(CLOSE);
   }
   
-  void update()
+  void update(int x, int y)
   {
-   
+    shape(enemies, x, y);
   }
 }

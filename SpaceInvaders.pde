@@ -18,6 +18,7 @@ TO DO
 
 PFont NameFont;
 PFont OptionFont;
+PFont ExplainFont;
 
 Player player;
 
@@ -30,6 +31,7 @@ void setup()
 
   NameFont = createFont("AR DESTINE",55);
   OptionFont = createFont("AR DESTINE",35);
+  ExplainFont = createFont("AR DESTINE", 32);
   
   player = new Player();
   shelter = new ArrayList<Shelter>();
@@ -50,6 +52,8 @@ void setup()
 
 int userMenu = 0;
 int playerx = 220;
+int enemyx = 30;
+int enemyy = 10;
 
 int[] shelterx = {50,170,290,410};
 
@@ -72,12 +76,31 @@ void draw()
           Shelter s = shelter.get(i);
           s.update(shelterx[i],400);
         }
+        
+        /*for(int i=0;i<enemy.size();i++)
+        {
+          Enemies e = enemy.get(i);
+          if(enemyx>500)
+          {
+            enemyx=30;
+            enemyy+=40;
+            e.update(enemyx,enemyy);
+          }
+          if(enemyx<0)
+          {
+            enemyx=30;
+            enemyy+=40;
+            e.update(enemyx,enemyy);
+          }
+        }*/
+        
+        
         break;
       case 2:
-        //scores.see
+        //seeScores();
         break;
       case 3:
-        //how to play
+        howtoplay();
         break;
     } //end switch */
   }//end else
@@ -99,6 +122,29 @@ void displayMenu()
   text("3. How to Play", 250,400);
 }
 
+void howtoplay()
+{
+  background(0);
+  textFont(ExplainFont);
+  fill(255);
+  textAlign(CENTER);
+  text("The aim of the game is to\nstop the aliens landing!!\nAvoid their bullets and\nshoot them back.\nTo move your tank, hit the\nw,a,s and d keys or else\nuse the arrows on\nyour keyboard.", 250,50);
+  text("Press b for Main Screen",250,450);
+  if(userMenu==0)
+  {
+    displayMenu();
+  }
+}
+
+/*void seeScores()
+{
+  
+  if(userMenu==0)
+  {
+    displayMenu();
+  }
+}*/
+
 void keyPressed()
 {
   if(key != CODED)
@@ -114,6 +160,10 @@ void keyPressed()
     if(key == '3')
     {
       userMenu = 3;
+    }
+    if(key == 'b')
+    {
+      userMenu = 0;
     }
     if(key == 'a')
     {
