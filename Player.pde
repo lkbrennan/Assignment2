@@ -1,13 +1,13 @@
 class Player extends Health
 
 { 
-  int x,y;
+  PVector pos;
+
   PShape tank;
   
   Player()
   { 
-    this.x=0;
-    this.y=0;
+    pos = new PVector(220,450);
     create();
   }
   
@@ -18,19 +18,19 @@ class Player extends Health
     tank.stroke(255);
     tank.fill(255);
     tank.strokeWeight(1);
-    tank.vertex(x-25,y-10);
-    tank.vertex(x-5,y-10);
-    tank.vertex(x-5,y-20);
-    tank.vertex(x+5,y-20);
-    tank.vertex(x+5,y-10);
-    tank.vertex(x+25,y-10);
-    tank.vertex(x+25,y+10);
-    tank.vertex(x-25,y+10);
+    tank.vertex(-25,-10);
+    tank.vertex(-5,-10);
+    tank.vertex(-5,-20);
+    tank.vertex(5,-20);
+    tank.vertex(5,-10);
+    tank.vertex(25,-10);
+    tank.vertex(25,10);
+    tank.vertex(-25,10);
     tank.endShape(CLOSE);
   }
   
-  void update(int playerx)
+  void update()
   {
-    shape(tank,playerx,450);
+    shape(tank,pos.x,pos.y);
   }
 }

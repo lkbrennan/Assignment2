@@ -29,7 +29,8 @@ ArrayList<Bullet> bullet;
 void setup()
 {
   size(500,500);
-
+  noCursor();
+  
   NameFont = createFont("AR DESTINE",55);
   OptionFont = createFont("AR DESTINE",35);
   ExplainFont = createFont("AR DESTINE", 32);
@@ -37,6 +38,7 @@ void setup()
   player = new Player();
   shelter = new ArrayList<Shelter>();
   enemy= new ArrayList<Enemies>();
+  bullet = new ArrayList<Bullet>();
   
   for(int i=0;i<4;i++)
   {
@@ -52,11 +54,12 @@ void setup()
 }
 
 int userMenu = 0;
-int playerx = 220;
 int enemyx = 30;
 int enemyy = 10;
 
 int[] shelterx = {50,170,290,410};
+
+float timeDelta = 1.0f/60.0f;
 
 void draw()
 {
@@ -71,7 +74,7 @@ void draw()
     switch(userMenu)
     {
       case 1:
-        player.update(playerx);
+        player.update();
         for(int i=0;i<shelter.size();i++)
         {
           Shelter s = shelter.get(i);
@@ -168,36 +171,38 @@ void keyPressed()
     }
     if(key == 'a')
     {
-      if(playerx > 20)
+      if(player.pos.x > 20)
       {
-        playerx -= 10;
+        player.pos.sub(10,0);
       }
     }
     if(key == 'd')
     {
-      if(playerx < width-20)
+      if(player.pos.x < width-20)
       {
-        playerx += 10;
+        player.pos.add(10,0);
       }
+    }
+    if(key == 'w')
+    {
+      bullet.add(new PlayerBullet());
     }
   }
   if(key == CODED)
   {
     if(keyCode == LEFT)
     {
-      if(playerx > 20)
+      if(player.pos.x > 20)
       {
-        playerx -= 10;
+        player.pos.sub(10,0);
       }
     }
     if(keyCode == RIGHT)
     {
-      if(playerx < width-20)
+      if(player.pos.x < width-20)
       {
-        playerx += 10;
+        player.pos.add(10,0);
       }
     }
-    if(key == SPACE)
-    
   }
 }//end key checking

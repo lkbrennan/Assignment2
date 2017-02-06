@@ -1,0 +1,4 @@
+class EnemyBullet extends Bullet
+{
+  
+}
