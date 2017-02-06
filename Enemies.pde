@@ -22,26 +22,25 @@ class Enemies
     enemies.beginShape();
     enemies.stroke(255);
     enemies.fill(255);
-    enemies.vertex(-15,-15);
-    enemies.vertex(15,-15);
-    enemies.vertex(0,15);
+    enemies.vertex(-20,-10);
+    enemies.vertex(20,-10);
+    enemies.vertex(0,101);
     enemies.endShape(CLOSE);
   }
   
   void update()
   {
-    alive+=timeDelta;
-    if(alive%10==0)
-    {
+    //if(alive%10==0)
+    //{
       if(counter%2==0)
-      {
-        pos.add(fly);
-      }
-      else
       {
         pos.sub(fly);
       }
-    }
+      else
+      {
+        pos.add(fly);
+      }
+    //}
     shape(enemies, pos.x, pos.y);;
   }
 }

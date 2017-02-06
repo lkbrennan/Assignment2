@@ -91,6 +91,16 @@ void draw()
         {
           Enemies e = enemy.get(i);
           e.update();
+          
+          if(e.pos.x>=460)
+          {
+            for(Enemies ship: enemy)
+            {
+              ship.pos.add(ship.drop);
+            } 
+            counter++;
+          }
+          
         }
         break;
       case 2:
