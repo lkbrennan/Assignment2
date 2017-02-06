@@ -24,6 +24,7 @@ Player player;
 
 ArrayList<Shelter> shelter;
 ArrayList<Enemies> enemy;
+ArrayList<Bullet> bullet;
 
 void setup()
 {
@@ -196,5 +197,7 @@ void keyPressed()
         playerx += 10;
       }
     }
+    if(key == SPACE)
+    
   }
 }//end key checking
