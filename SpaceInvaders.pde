@@ -46,16 +46,22 @@ void setup()
     shelter.add(s);
   }
   
-  for(int i=0;i<35;i++)
+  for(int i=0;i<16;i++)
   {
-    Enemies enemies=new Enemies();
-    enemy.add(enemies);
+    for(int x =20;x<=240;x+=60)
+    {
+      for(int y = 10;y<90;y+=30)
+      {
+        Enemies enemies=new Enemies(x,y);
+        enemy.add(enemies);
+      }
+    }
   }
 }
 
 int userMenu = 0;
-int enemyx = 30;
-int enemyy = 10;
+
+int counter = 1;
 
 int[] shelterx = {50,170,290,410};
 
@@ -81,24 +87,11 @@ void draw()
           s.update(shelterx[i],400);
         }
         
-        /*for(int i=0;i<enemy.size();i++)
+        for(int i=0;i<enemy.size();i++)
         {
           Enemies e = enemy.get(i);
-          if(enemyx>500)
-          {
-            enemyx=30;
-            enemyy+=40;
-            e.update(enemyx,enemyy);
-          }
-          if(enemyx<0)
-          {
-            enemyx=30;
-            enemyy+=40;
-            e.update(enemyx,enemyy);
-          }
-        }*/
-        
-        
+          e.update();
+        }
         break;
       case 2:
         //seeScores();

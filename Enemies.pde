@@ -1,9 +1,18 @@
 class Enemies
 {
-  PShape enemies;
+  PVector pos;
+  PVector fly;
+  PVector drop;
   
-  Enemies()
+  PShape enemies;
+  float alive=0;
+  
+  Enemies(int x,int y)
   {
+     pos = new PVector(x,y);
+     fly = new PVector(20,0);
+     drop = new PVector(0,30);
+     
      create(); 
   }
   
@@ -19,8 +28,20 @@ class Enemies
     enemies.endShape(CLOSE);
   }
   
-  void update(int x, int y)
+  void update()
   {
-    shape(enemies, x, y);
+    alive+=timeDelta;
+    if(alive%10==0)
+    {
+      if(counter%2==0)
+      {
+        pos.add(fly);
+      }
+      else
+      {
+        pos.sub(fly);
+      }
+    }
+    shape(enemies, pos.x, pos.y);;
   }
 }
