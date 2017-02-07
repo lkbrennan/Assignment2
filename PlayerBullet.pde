@@ -1,5 +1,12 @@
-class PlayerBullet extends Bullet
+class PlayerBullet
 {
+  PVector pos;
+  PVector speed;
+  
+  float size=30;
+  float timeToLive=5;
+  float alive = 0;
+  
   PlayerBullet()
   {
     pos = new PVector(player.pos.x,player.pos.y);
@@ -21,7 +28,7 @@ class PlayerBullet extends Bullet
     pos.sub(speed);
     if (alive > timeToLive)
     {
-      bullet.remove(this);
+      playerbullet.remove(this);
     }   
   }
 }

@@ -1,20 +1,19 @@
 /*Assignment 2
-Student Name: Lauren Keenan Brennan
-Student Number: C15434102
-Date: 6/2/2017
-*/
+ Student Name: Lauren Keenan Brennan
+ Student Number: C15434102
+ Date: 6/2/2017
+ */
 
 /*
 TO DO
-1. create enemies
-2. create bullet
-3. Health
-4. scores
-5. file saving and reading
-6. how to play screen
-7. power ups maybe?
-*/
-
+ 1. create enemies
+ 2. create bullet
+ 3. Health
+ 4. scores
+ 5. file saving and reading
+ 7. power ups maybe?
+ */
+PImage alien;
 
 PFont NameFont;
 PFont OptionFont;
@@ -24,37 +23,35 @@ Player player;
 
 ArrayList<Shelter> shelter;
 ArrayList<Enemies> enemy;
-ArrayList<Bullet> bullet;
+ArrayList<PlayerBullet> playerbullet;
 
 void setup()
 {
-  size(500,500);
+  size(500, 500);
   noCursor();
-  
-  NameFont = createFont("AR DESTINE",55);
-  OptionFont = createFont("AR DESTINE",35);
+
+  alien = loadImage("sprite.png");
+
+  NameFont = createFont("AR DESTINE", 55);
+  OptionFont = createFont("AR DESTINE", 35);
   ExplainFont = createFont("AR DESTINE", 32);
-  
+
   player = new Player();
   shelter = new ArrayList<Shelter>();
   enemy= new ArrayList<Enemies>();
-  bullet = new ArrayList<Bullet>();
-  
-  for(int i=0;i<4;i++)
+  playerbullet = new ArrayList<PlayerBullet>();
+
+  for (int i=0; i<4; i++)
   {
-    Shelter s = new Shelter();
+    Shelter s = new Shelter(shelterx[i], 400);
     shelter.add(s);
   }
-  
-  for(int i=0;i<16;i++)
+
+  for (int y = 10; y<90; y+=30)
   {
-    for(int x =20;x<=240;x+=60)
+    for (int x =40; x<=240; x+=60)
     {
-      for(int y = 10;y<90;y+=30)
-      {
-        Enemies enemies=new Enemies(x,y);
-        enemy.add(enemies);
-      }
+      enemy.add(new Enemies(x, y));
     }
   }
 }
@@ -63,15 +60,16 @@ int userMenu = 0;
 
 int counter = 1;
 
-int[] shelterx = {50,170,290,410};
+int[] shelterx = {50, 170, 290, 410};
 
-float timeDelta = 1.0f/60.0f;
+float timeDelta = 1.0f / 60.0f;
+
+boolean motion = true;
 
 void draw()
 {
   background(0);
-  
-  if(userMenu == 0)
+  if (userMenu == 0)
   {
     displayMenu();
   }
@@ -79,48 +77,47 @@ void draw()
   {
     switch(userMenu)
     {
-      case 1:
-        player.update();
-        for(int i=0;i<shelter.size();i++)
-        {
-          Shelter s = shelter.get(i);
-          s.update(shelterx[i],400);
-        }
-        
-        for(int i=0;i<enemy.size();i++)
+    case 1:
+      player.update();
+      
+      for (int i=0; i<shelter.size(); i++)
+      {
+        Shelter s = shelter.get(i);
+        s.update();
+      } 
+        for (int i=0; i<enemy.size(); i++)
         {
           Enemies e = enemy.get(i);
-          e.update();
-          
-          if(e.pos.x>=460)
+          if((frameCount%30==0) && (motion == true))
           {
-            for(Enemies ship: enemy)
+            e.update();
+            if (e.pos.x+40>=500||e.pos.x+40<=10)
             {
-              ship.pos.add(ship.drop);
-            } 
-            counter++;
+              motion = false;
+              drop();
+              counter++;
+              motion = true;
+
+            }
           }
-          if(e.pos.x<=30)
-          {
-            for(Enemies ship: enemy)
-            {
-              ship.pos.add(ship.drop);
-            } 
-            counter++;
-          }
-            
-          
+          e.render();
         }
-        break;
-      case 2:
-        //seeScores();
-        break;
-      case 3:
-        howtoplay();
-        break;
-    } //end switch */
+      for(int i =0; i <playerbullet.size();i++)
+      {
+        PlayerBullet b = playerbullet.get(i);
+        b.render();
+        b.update();
+      }
+        println("---------");
+      break;
+    case 2:
+      //seeScores();
+      break;
+    case 3:
+      howtoplay();
+      break;
+    }//end switch 
   }//end else
-  println(userMenu);
 }
 
 void displayMenu()
@@ -129,13 +126,13 @@ void displayMenu()
   textFont(NameFont);
   fill(255);
   textAlign(CENTER);
-  text("SPACE INVADERS", 250,100);
+  text("SPACE INVADERS", 250, 100);
   textFont(OptionFont);
   fill(255);
   textAlign(CENTER);
-  text("1. Play Game", 250,200);
-  text("2. See Scores", 250,300);
-  text("3. How to Play", 250,400);
+  text("1. Play Game", 250, 200);
+  text("2. See Scores", 250, 300);
+  text("3. How to Play", 250, 400);
 }
 
 void howtoplay()
@@ -144,77 +141,84 @@ void howtoplay()
   textFont(ExplainFont);
   fill(255);
   textAlign(CENTER);
-  text("The aim of the game is to\nstop the aliens landing!!\nAvoid their bullets and\nshoot them back.\nTo move your tank, hit the\nw,a,s and d keys or else\nuse the arrows on\nyour keyboard.", 250,50);
-  text("Press b for Main Screen",250,450);
-  if(userMenu==0)
+  text("The aim of the game is to\nstop the aliens landing!!\nAvoid their bullets and\nshoot them back.\nTo move your tank, hit the\nw,a,s and d keys or else\nuse the arrows on\nyour keyboard.", 250, 50);
+  text("Press b for Main Screen", 250, 450);
+  if (userMenu==0)
   {
     displayMenu();
   }
 }
 
-/*void seeScores()
+void drop()
 {
-  
-  if(userMenu==0)
-  {
-    displayMenu();
-  }
-}*/
+ for (Enemies ship : enemy)
+ {
+  ship.pos.add(ship.drop);
+ } 
+}
+
+/*void seeScores()
+ {
+ 
+ if(userMenu==0)
+ {
+ displayMenu();
+ }
+ }*/
 
 void keyPressed()
 {
-  if(key != CODED)
+  if (key != CODED)
   {
-    if(key == '1')
+    if (key == '1')
     {
       userMenu = 1;
     }
-    if(key == '2')
+    if (key == '2')
     {
       userMenu = 2;
     }
-    if(key == '3')
+    if (key == '3')
     {
       userMenu = 3;
     }
-    if(key == 'b')
+    if (key == 'b')
     {
       userMenu = 0;
     }
-    if(key == 'a')
+    if (key == 'a')
     {
-      if(player.pos.x > 20)
+      if (player.pos.x > 20)
       {
-        player.pos.sub(10,0);
+        player.pos.sub(10, 0);
       }
     }
-    if(key == 'd')
+    if (key == 'd')
     {
-      if(player.pos.x < width-20)
+      if (player.pos.x < width-20)
       {
-        player.pos.add(10,0);
+        player.pos.add(10, 0);
       }
     }
-    if(key == 'w')
+    if (key == 'w')
     {
-      Bullet PB = new PlayerBullet();
-      bullet.add(PB);
+      playerbullet.add(new PlayerBullet());
     }
   }
-  if(key == CODED)
+  if (key == CODED)
   {
-    if(keyCode == LEFT)
+    if (keyCode == LEFT)
     {
-      if(player.pos.x > 20)
+      if (player.pos.x > 20)
       {
-        player.pos.sub(10,0);
+        player.pos.sub(10, 0);
       }
     }
-    if(keyCode == RIGHT)
+    if (keyCode == RIGHT)
     {
-      if(player.pos.x < width-20)
+      if (player.pos.x < width-20)
       {
-        player.pos.add(10,0);
+        player.pos.add(10, 0);
       }
     }
   }

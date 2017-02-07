@@ -2,8 +2,9 @@ class Shelter extends Health
 {
   PShape shelters;
   
-  Shelter()
+  Shelter(int x,int y)
   {
+    pos = new PVector(x,y);
     create();
   }
   
@@ -21,8 +22,9 @@ class Shelter extends Health
     shelters.endShape(CLOSE);
   }
   
-  void update(int x, int y)
+  void update()
   {
-    shape(shelters,x,y); 
+    shape(shelters,pos.x,pos.y); 
+    //if(health
   }
 }

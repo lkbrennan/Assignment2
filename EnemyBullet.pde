@@ -20,7 +20,7 @@ class EnemyBullet extends Bullet
     alive += timeDelta;
     if (alive > timeToLive)
     {
-      bullet.remove(this);
+      playerbullet.remove(this);
     }   
   }
 }

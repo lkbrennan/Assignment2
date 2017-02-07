@@ -1,49 +1,47 @@
-class Enemies
+class Enemies extends Health
 {
-  PImage alien;
-  PVector pos;
+  //PImage alien;
   PVector fly;
   PVector drop;
-  
-  PShape enemies;
+
+  //PShape enemies;
   float alive=0;
-  
-  Enemies(int x,int y)
+
+  Enemies(int x, int y)
   {
-     pos = new PVector(x,y);
-     fly = new PVector(20,0);
-     drop = new PVector(0,30);
-     alien = loadImage("sprite.png");
-     
-     create(); 
+    pos = new PVector(x, y);
+    fly = new PVector(10, 0);
+    drop = new PVector(0, 30);
+    //alien = loadImage("sprite.png");
   }
-  
-  void create()
-  {
-    /*enemies = createShape();
-    enemies.beginShape();
-    enemies.stroke(255);
-    enemies.fill(255);
-    enemies.vertex(-20,-10);
-    enemies.vertex(20,-10);
-    enemies.vertex(0,101);
-    enemies.endShape(CLOSE);*/
-  }
-  
+
+  /*void create()
+   {
+   enemies = createShape();
+   enemies.beginShape();
+   enemies.stroke(255);
+   enemies.fill(255);
+   enemies.vertex(-20,-10);
+   enemies.vertex(20,-10);
+   enemies.vertex(0,101);
+   enemies.endShape(CLOSE);
+   }*/
+   
+   void render()
+   {
+     image(alien, pos.x, pos.y);
+   }
+
   void update()
   {
-    alive+=timeDelta;
-    if(alive%60==0)
+    if (counter%2==0)
     {
-      if(counter%2==0)
-      {
-        pos.sub(fly);
-      }
-      else
-      {
-        pos.add(fly);
-      }
+      pos.sub(fly);
+    } 
+    else
+    {
+      pos.add(fly);
     }
-    image(alien, pos.x, pos.y);;
+    println(pos);
   }
 }

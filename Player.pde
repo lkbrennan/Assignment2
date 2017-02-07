@@ -1,8 +1,5 @@
 class Player extends Health
-
-{ 
-  PVector pos;
-
+{
   PShape tank;
   
   Player()
