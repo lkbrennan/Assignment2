@@ -39,6 +39,7 @@ class EnemyBullet
       {
         enemybullet.remove(this);
         player.lives-=1;
+        player.hurt();
       }
     }
     for(int i=0; i<shelter.size();i++)

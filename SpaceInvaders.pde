@@ -51,7 +51,7 @@ void setup()
     shelter.add(s);
   }
 
-  for (int y = 10; y<90; y+=30)
+  for (int y = 10; y<100; y+=30)
   {
     for (int x =40; x<=240; x+=60)
     {
@@ -63,6 +63,7 @@ void setup()
 int userMenu = 0;
 
 int counter = 1;
+int s = 30;
 
 int[] shelterx = {50, 170, 290, 410};
 
@@ -98,17 +99,25 @@ void draw()
         Shelter s = shelter.get(i);
         s.update();
       } 
+      
       for (int i=0; i<enemy.size(); i++)
       {
         Enemies e = enemy.get(i);
-        if ((frameCount%30==0) && (motion == true))
+        if ((frameCount%s==0) && (motion == true))
         {
           e.update();
-          if (e.pos.x+40>=500||e.pos.x+40<=10)
+          if (e.pos.x+40>=500||e.pos.x+40<=30)
           {
             motion = false;
             drop();
             counter++;
+            if(counter%2==0)
+            {
+              if(s>5)
+              {
+                s-=5;
+              }
+            }
             motion = true;
           }
         }
@@ -205,6 +214,9 @@ void gameOver()
   text("Press b for Main Screen", 250, 450);
   if (userMenu == 0)
   {
+    player.lives=3;
+    gameReset();
+    println(player.lives);
     displayMenu();
   }
   //run through everyting and reset like david said

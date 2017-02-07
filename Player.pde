@@ -7,7 +7,7 @@ class Player extends Health
   Player()
   { 
     score=0;
-    c=255;
+    c=color(255);
     lives = 3;
     pos = new PVector(220,450);
     create();
@@ -35,5 +35,10 @@ class Player extends Health
   {
     shape(tank,pos.x,pos.y);
     println(lives);
+  }
+  
+  void hurt()
+  {
+    c=color(255,0,0);
   }
 }
