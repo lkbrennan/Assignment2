@@ -7,7 +7,7 @@
 /*
 TO DO
  1. create enemies
- 2. create bullet
+ 2. write scores and lives
  3. Health
  4. scores
  5. file saving and reading
@@ -18,6 +18,7 @@ PImage alien;
 PFont NameFont;
 PFont OptionFont;
 PFont ExplainFont;
+PFont GameFont;
 
 Player player;
 
@@ -36,6 +37,7 @@ void setup()
   NameFont = createFont("AR DESTINE", 55);
   OptionFont = createFont("AR DESTINE", 35);
   ExplainFont = createFont("AR DESTINE", 32);
+  GameFont = createFont("AR DESTINE", 25);
 
   player = new Player();
   shelter = new ArrayList<Shelter>();
@@ -73,63 +75,68 @@ int enemyfire;
 void draw()
 {
   background(0);
-  
-  enemyfire = ((int)random(0,enemy.size()));
+
+  enemyfire = ((int)random(0, enemy.size()));
   if (userMenu == 0)
   {
     displayMenu();
-  }
-  else
+  } else
   {
     switch(userMenu)
     {
     case 1:
       player.update();
-      
+
+      textFont(GameFont);
+      fill(25, 247, 10);
+      textAlign(CENTER);
+      text("LIVES:"+player.lives, 100, 480);
+      text("SCORE:"+player.score, 400, 480);
+
       for (int i=0; i<shelter.size(); i++)
       {
         Shelter s = shelter.get(i);
         s.update();
       } 
-        for (int i=0; i<enemy.size(); i++)
+      for (int i=0; i<enemy.size(); i++)
+      {
+        Enemies e = enemy.get(i);
+        if ((frameCount%30==0) && (motion == true))
         {
-          Enemies e = enemy.get(i);
-          if((frameCount%30==0) && (motion == true))
+          e.update();
+          if (e.pos.x+40>=500||e.pos.x+40<=10)
           {
-            e.update();
-            if (e.pos.x+40>=500||e.pos.x+40<=10)
-            {
-              motion = false;
-              drop();
-              counter++;
-              motion = true;
-            }
+            motion = false;
+            drop();
+            counter++;
+            motion = true;
           }
-          if(frameCount%240 == 0 )
-          {
-            if(i == enemyfire)
-            {
-              enemybullet.add(new EnemyBullet(e.pos));
-            }
-          }
-          e.render();
         }
-      for(int i =0; i <playerbullet.size();i++)
+        if (frameCount%240 == 0 )
+        {
+          if (i == enemyfire)
+          {
+            enemybullet.add(new EnemyBullet(e.pos));
+          }
+        }
+        e.render();
+      }
+      for (int i =0; i <playerbullet.size(); i++)
       {
         PlayerBullet b = playerbullet.get(i);
         b.render();
         b.update();
       }
-      for(int j=0;j<enemybullet.size();j++)
+      for (int j=0; j<enemybullet.size(); j++)
       {
         EnemyBullet eb = enemybullet.get(j);
         eb.render();
-        eb.update(); 
+        eb.update();
       }
-       if(player.lives<=0)
-       {
-         gameOver();
-       }
+      if (player.lives<=0)
+      {
+        gameOver();
+      }
       break;
     case 2:
       //seeScores();
@@ -137,7 +144,7 @@ void draw()
     case 3:
       howtoplay();
       break;
-    }//end switch 
+    }//end switch
   }//end else
 }
 
@@ -172,10 +179,10 @@ void howtoplay()
 
 void drop()
 {
- for (Enemies ship : enemy)
- {
-  ship.pos.add(ship.drop);
- } 
+  for (Enemies ship : enemy)
+  {
+    ship.pos.add(ship.drop);
+  }
 }
 
 /*void seeScores()
@@ -186,18 +193,17 @@ void drop()
  displayMenu();
  }
  }*/
- 
+
 void gameOver()
 {
   background(0);
   textFont(NameFont);
   fill(255);
   textAlign(CENTER);
-  text("GAME OVER" ,250, 250);
+  text("GAME OVER", 250, 250);
   textFont(ExplainFont);
   text("Press b for Main Screen", 250, 450);
-  gameReset();
-  if(userMenu == 0)
+  if (userMenu == 0)
   {
     displayMenu();
   }
@@ -206,6 +212,12 @@ void gameOver()
 
 void gameReset()
 {
+  for (int i = 0; i<enemy.size(); i++)
+  {
+    Enemies e = enemy.get(i);
+    enemy.remove(e);
+  }
+
   for (int i=0; i<4; i++)
   {
     Shelter s = new Shelter(shelterx[i], 400);
@@ -219,7 +231,7 @@ void gameReset()
       enemy.add(new Enemies(x, y));
     }
   }
-  
+
   player.lives = 3;
 }
 

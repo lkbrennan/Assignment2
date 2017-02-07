@@ -41,6 +41,7 @@ class PlayerBullet
         {
           playerbullet.remove(this);
           e.lives--;
+          player.score+=100;
         }
       }
     }

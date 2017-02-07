@@ -1,9 +1,13 @@
 class Player extends Health
 {
   PShape tank;
+  color c;
+  int score;
   
   Player()
   { 
+    score=0;
+    c=255;
     lives = 3;
     pos = new PVector(220,450);
     create();
@@ -13,8 +17,8 @@ class Player extends Health
   {
     tank = createShape();
     tank.beginShape();
-    tank.stroke(255);
-    tank.fill(255);
+    tank.fill(c);
+    tank.stroke(c);
     tank.strokeWeight(1);
     tank.vertex(-25,-10);
     tank.vertex(-5,-10);

@@ -17,18 +17,6 @@ class Enemies extends Health
     lives = 1;
     //alien = loadImage("sprite.png");
   }
-
-  /*void create()
-   {
-   enemies = createShape();
-   enemies.beginShape();
-   enemies.stroke(255);
-   enemies.fill(255);
-   enemies.vertex(-20,-10);
-   enemies.vertex(20,-10);
-   enemies.vertex(0,101);
-   enemies.endShape(CLOSE);
-   }*/
    
    void render()
    {
