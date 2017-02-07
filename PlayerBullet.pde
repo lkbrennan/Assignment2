@@ -3,7 +3,7 @@ class PlayerBullet
   PVector pos;
   PVector speed;
   
-  float size=30;
+  float size=20;
   float timeToLive=5;
   float alive = 0;
   
@@ -17,6 +17,7 @@ class PlayerBullet
   {
     pushMatrix();
     translate(pos.x, pos.y);
+    strokeWeight(2);
     stroke(255);
     line(0, - size / 2, 0, size / 2);
     popMatrix();

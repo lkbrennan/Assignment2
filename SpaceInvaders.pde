@@ -24,6 +24,7 @@ Player player;
 ArrayList<Shelter> shelter;
 ArrayList<Enemies> enemy;
 ArrayList<PlayerBullet> playerbullet;
+ArrayList<EnemyBullet> enemybullet;
 
 void setup()
 {
@@ -40,6 +41,7 @@ void setup()
   shelter = new ArrayList<Shelter>();
   enemy= new ArrayList<Enemies>();
   playerbullet = new ArrayList<PlayerBullet>();
+  enemybullet = new ArrayList<EnemyBullet>();
 
   for (int i=0; i<4; i++)
   {
@@ -66,9 +68,13 @@ float timeDelta = 1.0f / 60.0f;
 
 boolean motion = true;
 
+int enemyfire;
+
 void draw()
 {
   background(0);
+  
+  enemyfire = ((int)random(0,enemy.size()));
   if (userMenu == 0)
   {
     displayMenu();
@@ -97,7 +103,10 @@ void draw()
               drop();
               counter++;
               motion = true;
-
+            }
+            if(i == enemyfire)
+            {
+              enemybullet.add(new EnemyBullet(e.pos));
             }
           }
           e.render();
@@ -107,6 +116,12 @@ void draw()
         PlayerBullet b = playerbullet.get(i);
         b.render();
         b.update();
+      }
+      for(int j=0;j<enemybullet.size();j++)
+      {
+        EnemyBullet eb = enemybullet.get(j);
+        eb.render();
+        eb.update(); 
       }
         println("---------");
       break;
