@@ -49,8 +49,8 @@ class EnemyBullet
         if((pos.y>=s.pos.y) && (pos.y<=s.pos.y+15))
         {
           enemybullet.remove(this);
-          s.w -=20;
-          s.pos.x+=10;
+          s.w -=10;
+          s.pos.x+=5;
         }
       }
     }

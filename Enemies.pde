@@ -14,6 +14,7 @@ class Enemies extends Health
     pos = new PVector(x, y);
     fly = new PVector(10, 0);
     drop = new PVector(0, 30);
+    lives = 1;
     //alien = loadImage("sprite.png");
   }
 
@@ -43,6 +44,10 @@ class Enemies extends Health
     else
     {
       pos.add(fly);
+    }
+    if(lives<=0)
+    {
+      enemy.remove(this);
     }
   }
 }

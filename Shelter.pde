@@ -16,7 +16,7 @@ class Shelter extends Health
     fill(255);
     rect(pos.x,pos.y,w,h);
     
-    if(w<=10)
+    if(w<=5)
     {
       shelter.remove(this);
     }

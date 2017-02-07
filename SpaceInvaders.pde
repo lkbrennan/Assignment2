@@ -196,11 +196,31 @@ void gameOver()
   text("GAME OVER" ,250, 250);
   textFont(ExplainFont);
   text("Press b for Main Screen", 250, 450);
+  gameReset();
   if(userMenu == 0)
   {
     displayMenu();
   }
   //run through everyting and reset like david said
+}
+
+void gameReset()
+{
+  for (int i=0; i<4; i++)
+  {
+    Shelter s = new Shelter(shelterx[i], 400);
+    shelter.add(s);
+  }
+
+  for (int y = 10; y<90; y+=30)
+  {
+    for (int x =40; x<=240; x+=60)
+    {
+      enemy.add(new Enemies(x, y));
+    }
+  }
+  
+  player.lives = 3;
 }
 
 void keyPressed()
