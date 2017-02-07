@@ -51,7 +51,7 @@ void setup()
     shelter.add(s);
   }
 
-  for (int y = 10; y<100; y+=30)
+  for (int y = 40; y<=130; y+=30)
   {
     for (int x =40; x<=240; x+=60)
     {

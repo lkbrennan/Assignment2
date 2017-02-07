@@ -55,5 +55,9 @@ class EnemyBullet
         }
       }
     }
+    if(pos.y>=450)
+    {
+      enemybullet.remove(this);
+    }
   }
 }
