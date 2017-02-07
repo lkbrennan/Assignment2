@@ -104,6 +104,9 @@ void draw()
               counter++;
               motion = true;
             }
+          }
+          if(frameCount%240 == 0 )
+          {
             if(i == enemyfire)
             {
               enemybullet.add(new EnemyBullet(e.pos));
@@ -123,7 +126,10 @@ void draw()
         eb.render();
         eb.update(); 
       }
-        println("---------");
+       if(player.lives<=0)
+       {
+         gameOver();
+       }
       break;
     case 2:
       //seeScores();
@@ -180,6 +186,22 @@ void drop()
  displayMenu();
  }
  }*/
+ 
+void gameOver()
+{
+  background(0);
+  textFont(NameFont);
+  fill(255);
+  textAlign(CENTER);
+  text("GAME OVER" ,250, 250);
+  textFont(ExplainFont);
+  text("Press b for Main Screen", 250, 450);
+  if(userMenu == 0)
+  {
+    displayMenu();
+  }
+  //run through everyting and reset like david said
+}
 
 void keyPressed()
 {

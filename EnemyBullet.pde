@@ -32,5 +32,27 @@ class EnemyBullet
     {
       playerbullet.remove(this);
     }  */ 
+    
+    if((pos.x>=player.pos.x-25) && (pos.x<=(player.pos.x+25)))
+    {
+      if((pos.y>=player.pos.y) && (pos.y<=(player.pos.y+20)))
+      {
+        enemybullet.remove(this);
+        player.lives-=1;
+      }
+    }
+    for(int i=0; i<shelter.size();i++)
+    {
+      Shelter s = shelter.get(i);
+      if((pos.x>=s.pos.x) && (pos.x<=s.pos.x+60))
+      {
+        if((pos.y>=s.pos.y) && (pos.y<=s.pos.y+15))
+        {
+          enemybullet.remove(this);
+          s.w -=20;
+          s.pos.x+=10;
+        }
+      }
+    }
   }
 }

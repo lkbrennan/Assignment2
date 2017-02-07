@@ -3,12 +3,14 @@ class Enemies extends Health
   //PImage alien;
   PVector fly;
   PVector drop;
+  PVector original;
 
   //PShape enemies;
   float alive=0;
 
   Enemies(int x, int y)
   {
+    original = new PVector(x, y);
     pos = new PVector(x, y);
     fly = new PVector(10, 0);
     drop = new PVector(0, 30);
@@ -42,6 +44,5 @@ class Enemies extends Health
     {
       pos.add(fly);
     }
-    println(pos);
   }
 }

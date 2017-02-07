@@ -1,5 +1,5 @@
 class Health
 {
-  int health = 100;
+  int lives;
   PVector pos;
 }

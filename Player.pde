@@ -4,6 +4,7 @@ class Player extends Health
   
   Player()
   { 
+    lives = 3;
     pos = new PVector(220,450);
     create();
   }
@@ -29,5 +30,6 @@ class Player extends Health
   void update()
   {
     shape(tank,pos.x,pos.y);
+    println(lives);
   }
 }

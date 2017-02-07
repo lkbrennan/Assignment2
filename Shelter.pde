@@ -1,30 +1,24 @@
 class Shelter extends Health
 {
   PShape shelters;
+  int w;
+  int h;
   
   Shelter(int x,int y)
   {
     pos = new PVector(x,y);
-    create();
-  }
-  
-  void create()
-  {
-    shelters = createShape();
-    shelters.beginShape();
-    shelters.stroke(255);
-    shelters.fill(255);
-    shelters.strokeWeight(1);
-    shelters.vertex(0,15);
-    shelters.vertex(60, 15);
-    shelters.vertex(60,0);
-    shelters.vertex(0,0);
-    shelters.endShape(CLOSE);
+    w = 60;
+    h = 15;
   }
   
   void update()
   {
-    shape(shelters,pos.x,pos.y); 
-    //if(health
+    fill(255);
+    rect(pos.x,pos.y,w,h);
+    
+    if(w<=10)
+    {
+      shelter.remove(this);
+    }
   }
 }
