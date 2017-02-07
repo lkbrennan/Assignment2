@@ -1,5 +1,6 @@
 class Enemies
 {
+  PImage alien;
   PVector pos;
   PVector fly;
   PVector drop;
@@ -12,26 +13,28 @@ class Enemies
      pos = new PVector(x,y);
      fly = new PVector(20,0);
      drop = new PVector(0,30);
+     alien = loadImage("sprite.png");
      
      create(); 
   }
   
   void create()
   {
-    enemies = createShape();
+    /*enemies = createShape();
     enemies.beginShape();
     enemies.stroke(255);
     enemies.fill(255);
     enemies.vertex(-20,-10);
     enemies.vertex(20,-10);
     enemies.vertex(0,101);
-    enemies.endShape(CLOSE);
+    enemies.endShape(CLOSE);*/
   }
   
   void update()
   {
-    //if(alive%10==0)
-    //{
+    alive+=timeDelta;
+    if(alive%60==0)
+    {
       if(counter%2==0)
       {
         pos.sub(fly);
@@ -40,7 +43,7 @@ class Enemies
       {
         pos.add(fly);
       }
-    //}
-    shape(enemies, pos.x, pos.y);;
+    }
+    image(alien, pos.x, pos.y);;
   }
 }

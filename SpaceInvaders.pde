@@ -100,6 +100,15 @@ void draw()
             } 
             counter++;
           }
+          if(e.pos.x<=30)
+          {
+            for(Enemies ship: enemy)
+            {
+              ship.pos.add(ship.drop);
+            } 
+            counter++;
+          }
+            
           
         }
         break;
@@ -188,7 +197,8 @@ void keyPressed()
     }
     if(key == 'w')
     {
-      bullet.add(new PlayerBullet());
+      Bullet PB = new PlayerBullet();
+      bullet.add(PB);
     }
   }
   if(key == CODED)

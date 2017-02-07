@@ -18,6 +18,7 @@ class PlayerBullet extends Bullet
   void update()
   {
     alive += timeDelta;
+    pos.sub(speed);
     if (alive > timeToLive)
     {
       bullet.remove(this);
