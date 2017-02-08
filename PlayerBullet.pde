@@ -41,7 +41,7 @@ class PlayerBullet
         {
           playerbullet.remove(this);
           e.lives--;
-          player.score+=100;
+          player.score+=50;
         }
       }
     }
@@ -56,6 +56,20 @@ class PlayerBullet
           playerbullet.remove(this);
           s.w -=10;
           s.pos.x+=5;
+        }
+      }
+    }
+    
+    for(int i =0;i<master.size();i++)
+    {
+      Master m = master.get(i);
+      if((pos.x>=m.pos.x) && (pos.x<=m.pos.x+40))
+      {
+        if((pos.y>=m.pos.y) && (pos.y<=m.pos.y+20))
+        {
+          playerbullet.remove(this);
+          m.lives--;
+          player.score+=100;
         }
       }
     }

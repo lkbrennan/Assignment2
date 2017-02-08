@@ -6,14 +6,11 @@
 
 /*
 TO DO
- 1. create enemies
- 2. write scores and lives
- 3. Health
- 4. scores
  5. file saving and reading
- 7. power ups maybe?
+ 7. power ups maybe? Lives
  */
 PImage alien;
+PImage mstr;
 
 PFont NameFont;
 PFont OptionFont;
@@ -26,6 +23,7 @@ ArrayList<Shelter> shelter;
 ArrayList<Enemies> enemy;
 ArrayList<PlayerBullet> playerbullet;
 ArrayList<EnemyBullet> enemybullet;
+ArrayList<Master> master;
 
 void setup()
 {
@@ -33,6 +31,7 @@ void setup()
   noCursor();
 
   alien = loadImage("sprite.png");
+  mstr = loadImage("master.png");
 
   NameFont = createFont("AR DESTINE", 55);
   OptionFont = createFont("AR DESTINE", 35);
@@ -44,6 +43,7 @@ void setup()
   enemy= new ArrayList<Enemies>();
   playerbullet = new ArrayList<PlayerBullet>();
   enemybullet = new ArrayList<EnemyBullet>();
+  master = new ArrayList<Master>();
 
   for (int i=0; i<4; i++)
   {
@@ -100,6 +100,21 @@ void draw()
         s.update();
       } 
       
+      if(frameCount%420==0)
+      {
+        master.add(new Master(0,10));
+      }
+      
+      for(int i=0;i<master.size();i++)
+      {
+        Master m = master.get(i);
+        if(frameCount%5==0)
+        {
+          m.update();
+        }
+        m.render();
+      }
+      
       for (int i=0; i<enemy.size(); i++)
       {
         Enemies e = enemy.get(i);
@@ -121,6 +136,7 @@ void draw()
             motion = true;
           }
         }
+        
         if (frameCount%240 == 0 )
         {
           if (i == enemyfire)
@@ -211,6 +227,7 @@ void gameOver()
   textAlign(CENTER);
   text("GAME OVER", 250, 250);
   textFont(ExplainFont);
+  text("SCORE:"+player.score,250,300);
   text("Press b for Main Screen", 250, 450);
   if (userMenu == 0)
   {
