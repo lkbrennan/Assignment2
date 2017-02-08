@@ -15,7 +15,7 @@ class EnemyBullet
   
   void render()
   {
-    //creates bullet in a ppushed matrix so you can just change the y coordinates
+    //creates bullet in a pushed matrix so you can just change the y coordinates
     pushMatrix();
     translate(pos.x, pos.y);
     stroke(255);
