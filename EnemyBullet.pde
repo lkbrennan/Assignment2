@@ -3,18 +3,19 @@ class EnemyBullet
   PVector pos;
   PVector speed;
   
+  //setting size of bullets
   float size=20;
-  float timeToLive=5;
-  float alive = 0;
   
   EnemyBullet(PVector origin)
   {
+    //creating speed and position for enemy bullets
     pos = new PVector(origin.x,origin.y);
     speed = new PVector(0,3);
   }
   
   void render()
   {
+    //creates bullet in a ppushed matrix so you can just change the y coordinates
     pushMatrix();
     translate(pos.x, pos.y);
     stroke(255);
@@ -24,9 +25,12 @@ class EnemyBullet
   }
   
   void update()
-  { 
+  {
+    //add speed to position
     pos.add(speed);
     
+    
+    //if enemy bullet collides with player, player lives decremented and bullet deleted
     if((pos.x>=player.pos.x-25) && (pos.x<=(player.pos.x+25)))
     {
       if((pos.y>=player.pos.y) && (pos.y<=(player.pos.y+20)))
@@ -35,6 +39,8 @@ class EnemyBullet
         player.lives-=1;
       }
     }
+    
+    //if enemy bullet hits shelter, shelter width decreases and bullet disappears
     for(int i=0; i<shelter.size();i++)
     {
       Shelter s = shelter.get(i);
@@ -48,6 +54,8 @@ class EnemyBullet
         }
       }
     }
+    
+    //delete bullet if it hits ground
     if(pos.y>=450)
     {
       enemybullet.remove(this);
