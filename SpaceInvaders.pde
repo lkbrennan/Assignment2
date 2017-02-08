@@ -10,21 +10,30 @@ TO DO
  7. power ups maybe? Lives
  */
 
+
+//importing minim library for background music
 import ddf.minim.*;
 import ddf.minim.effects.*;
 
 Minim minim;
 AudioPlayer theme;
 
+//background image
 PImage background;
+
+//sprites for aliens
 PImage alien;
 PImage mstr;
 
+
+//Game fonts
 PFont NameFont;
 PFont OptionFont;
 PFont ExplainFont;
 PFont GameFont;
 
+
+//initialising classes and arraylists
 Player player;
 
 ArrayList<Shelter> shelter;
@@ -41,28 +50,34 @@ void setup()
   minim = new Minim(this);
   theme = minim.loadFile("Theme.mp3", 2048);
 
+  //loading images
   background = loadImage("space.jpg");
   alien = loadImage("sprite.png");
   mstr = loadImage("master.png");
 
+  //creating fonts
   NameFont = createFont("AR DESTINE", 55);
   OptionFont = createFont("AR DESTINE", 35);
   ExplainFont = createFont("AR DESTINE", 32);
   GameFont = createFont("AR DESTINE", 25);
 
+  //calling all classes and arraylists
   player = new Player();
   shelter = new ArrayList<Shelter>();
   enemy= new ArrayList<Enemies>();
   playerbullet = new ArrayList<PlayerBullet>();
   enemybullet = new ArrayList<EnemyBullet>();
   master = new ArrayList<Master>();
+  booster = new ArrayList<Booster>():
 
+  //adding shelters
   for (int i=0; i<4; i++)
   {
     Shelter s = new Shelter(shelterx[i], 400);
     shelter.add(s);
   }
 
+  //adding enemies
   for (int y = 40; y<=130; y+=30)
   {
     for (int x =40; x<=240; x+=60)
@@ -71,19 +86,27 @@ void setup()
     }
   }
 
+  //plays theme song
   theme.loop();
 }
 
+//variable to change screens
 int userMenu = 0;
 
+//counters to move the enemies
 int counter = 1;
 int s = 30;
 
+//x values of the shelters
 int[] shelterx = {50, 170, 290, 410};
 
 boolean motion = true;
 
+//variable to randomly create enemy bulletss
 int enemyfire;
+
+//variable to randomly create life booster
+int booster;
 
 void draw()
 {
@@ -112,10 +135,15 @@ void draw()
         Shelter s = shelter.get(i);
         s.update();
       } 
-
-      if (frameCount%420==0)
+      
+      //every 8 seconds a master enemy ship will be created and appear in the top of the screen
+      if (frameCount%480==0)
       {
         master.add(new Master(0, 10));
+        booster = int(random(0,10));
+        //if(booster>5)
+        //{
+          
       }
 
       for (int i=0; i<master.size(); i++)
@@ -128,11 +156,13 @@ void draw()
         m.render();
       }
 
+      //if the enemy array is equal to 0, the game will reset, except for player lives
       if (enemy.size()==0)
       {
         gameReset();
       }
 
+      
       for (int i=0; i<enemy.size(); i++)
       {
         Enemies e = enemy.get(i);
@@ -165,18 +195,21 @@ void draw()
         }
         e.render();
       }
+      
       for (int i =0; i <playerbullet.size(); i++)
       {
         PlayerBullet b = playerbullet.get(i);
         b.render();
         b.update();
       }
+      
       for (int j=0; j<enemybullet.size(); j++)
       {
         EnemyBullet eb = enemybullet.get(j);
         eb.render();
         eb.update();
       }
+      
       if (player.lives==0)
       {
         gameOver();
@@ -192,6 +225,7 @@ void draw()
   }//end else
 }
 
+//method for display screen
 void displayMenu()
 {
   image(background, 0, 0);
@@ -207,6 +241,7 @@ void displayMenu()
   text("3. How to Play", 250, 400);
 }
 
+//method for how to play screen
 void howtoplay()
 {
   image(background, 0, 0);
@@ -215,12 +250,14 @@ void howtoplay()
   textAlign(CENTER);
   text("The aim of the game is to\nstop the aliens landing!!\nAvoid their bullets and\nshoot them back.\nTo move your tank, hit the\nw,a,s and d keys or else\nuse the arrows on\nyour keyboard.", 250, 50);
   text("Press b for Main Screen", 250, 450);
+  //if b is pressed, display menu is showed
   if (userMenu==0)
   {
     displayMenu();
   }
 }
 
+//methos to drop enemy ships by 10 pixels
 void drop()
 {
   for (Enemies ship : enemy)
@@ -262,12 +299,14 @@ void gameReset()
   counter = 1;
   s = 30;
 
+  //removes enemies from arraylists
   for (int i = 0; i<enemy.size(); i++)
   {
     Enemies e = enemy.get(i);
     enemy.remove(e);
   }
 
+  //removes shelters from arraylists
   for (int i = 0; i<shelter.size(); i++)
   {
     Shelter s = shelter.get(i);
