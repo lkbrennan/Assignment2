@@ -1,5 +1,6 @@
 class Player extends Health
 {
+  //Player is a tank PShape
   PShape tank;
   color c;
   int score;
@@ -34,6 +35,5 @@ class Player extends Health
   void update()
   {
     shape(tank,pos.x,pos.y);
-    println(lives);
   }
 }
