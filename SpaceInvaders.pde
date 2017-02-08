@@ -9,6 +9,13 @@ TO DO
  5. file saving and reading
  7. power ups maybe? Lives
  */
+ 
+import ddf.minim.*;
+import ddf.minim.effects.*;
+
+Minim minim;
+AudioPlayer theme;
+
 PImage alien;
 PImage mstr;
 
@@ -30,6 +37,9 @@ void setup()
   size(500, 500);
   noCursor();
 
+  minim = new Minim(this);
+  theme = minim.loadFile("Theme.mp3", 2048);
+  
   alien = loadImage("sprite.png");
   mstr = loadImage("master.png");
 
@@ -58,6 +68,8 @@ void setup()
       enemy.add(new Enemies(x, y));
     }
   }
+  
+  theme.loop();
 }
 
 int userMenu = 0;
@@ -78,6 +90,7 @@ void draw()
   background(0);
 
   enemyfire = ((int)random(0, enemy.size()));
+  
   if (userMenu == 0)
   {
     displayMenu();
