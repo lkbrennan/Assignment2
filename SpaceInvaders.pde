@@ -143,20 +143,20 @@ void draw()
         Shelter s = shelter.get(i);
         s.update();
       } 
-      
+
       //every 8 seconds a master enemy ship will be created and appear in the top of the screen
       if (frameCount%480==0)
       {
         master.add(new Master(0, 10));
-        boosterprob = int(random(0,10));
-        boosterpos = int(random(10,490));
-        if(boosterprob>5)
+        boosterprob = int(random(0, 10));
+        boosterpos = int(random(10, 490));
+        if (boosterprob>5)
         {
-          booster.add(new Booster(boosterpos,435));
-        }  
+          booster.add(new Booster(boosterpos, 435));
+        }
       }
-      
-      for(int i =0;i<booster.size();i++)
+
+      for (int i =0; i<booster.size(); i++)
       {
         Booster b = booster.get(i);
         b.render();
@@ -179,7 +179,7 @@ void draw()
         gameReset();
       }
 
-      
+
       for (int i=0; i<enemy.size(); i++)
       {
         Enemies e = enemy.get(i);
@@ -212,28 +212,28 @@ void draw()
         }
         e.render();
       }
-      
+
       for (int i =0; i <playerbullet.size(); i++)
       {
         PlayerBullet b = playerbullet.get(i);
         b.render();
         b.update();
       }
-      
+
       for (int j=0; j<enemybullet.size(); j++)
       {
         EnemyBullet eb = enemybullet.get(j);
         eb.render();
         eb.update();
       }
-      
+
       if (player.lives==0)
       {
         gameOver();
       }
       break;
     case 2:
-      //seeScores();
+      seeScores();
       break;
     case 3:
       howtoplay();
@@ -283,14 +283,20 @@ void drop()
   }
 }
 
-/*void seeScores()
- {
- 
- if(userMenu==0)
- {
- displayMenu();
- }
- }*/
+void seeScores()
+{
+  image(background, 0, 0);
+  textFont(ExplainFont);
+  fill(255);
+  textAlign(CENTER);
+  text("Wanted to save scores to files\n and then read them in\n but didn't have enough time", 250, 200);
+  text("Press b for Main Screen", 250, 450);
+  //if b is pressed, display menu is showed
+  if (userMenu==0)
+  {
+    displayMenu();
+  }
+}
 
 //Game over screen displayed when user loses game
 void gameOver()
