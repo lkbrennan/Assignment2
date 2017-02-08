@@ -49,7 +49,7 @@ class PlayerBullet
     for(int i=0; i<shelter.size();i++)
     {
       Shelter s = shelter.get(i);
-      if((pos.x>=s.pos.x) && (pos.x<=s.pos.x+60))
+      if((pos.x>=s.pos.x) && (pos.x<=s.pos.x+s.w))
       {
         if((pos.y>=s.pos.y) && (pos.y<=s.pos.y+15))
         {

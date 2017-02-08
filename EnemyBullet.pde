@@ -27,11 +27,6 @@ class EnemyBullet
   {
     alive+=timeDelta; 
     pos.add(speed);
-    /*if(alive > timeToLive)
-   ive)
-    {
-      playerbullet.remove(this);
-    }  */ 
     
     if((pos.x>=player.pos.x-25) && (pos.x<=(player.pos.x+25)))
     {
@@ -45,7 +40,7 @@ class EnemyBullet
     for(int i=0; i<shelter.size();i++)
     {
       Shelter s = shelter.get(i);
-      if((pos.x>=s.pos.x) && (pos.x<=s.pos.x+60))
+      if((pos.x>=s.pos.x) && (pos.x<=s.pos.x+s.w))
       {
         if((pos.y>=s.pos.y) && (pos.y<=s.pos.y+15))
         {

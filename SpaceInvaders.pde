@@ -16,6 +16,7 @@ import ddf.minim.effects.*;
 Minim minim;
 AudioPlayer theme;
 
+PImage background;
 PImage alien;
 PImage mstr;
 
@@ -40,6 +41,7 @@ void setup()
   minim = new Minim(this);
   theme = minim.loadFile("Theme.mp3", 2048);
   
+  background = loadImage("space.jpg");
   alien = loadImage("sprite.png");
   mstr = loadImage("master.png");
 
@@ -87,7 +89,7 @@ int enemyfire;
 
 void draw()
 {
-  background(0);
+  image(background,0,0);
 
   enemyfire = ((int)random(0, enemy.size()));
   
@@ -188,7 +190,7 @@ void draw()
 
 void displayMenu()
 {
-  background(0);
+  image(background,0,0);
   textFont(NameFont);
   fill(255);
   textAlign(CENTER);
@@ -203,7 +205,7 @@ void displayMenu()
 
 void howtoplay()
 {
-  background(0);
+  image(background,0,0);
   textFont(ExplainFont);
   fill(255);
   textAlign(CENTER);
