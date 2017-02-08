@@ -9,7 +9,7 @@ TO DO
  5. file saving and reading
  7. power ups maybe? Lives
  */
- 
+
 import ddf.minim.*;
 import ddf.minim.effects.*;
 
@@ -40,7 +40,7 @@ void setup()
 
   minim = new Minim(this);
   theme = minim.loadFile("Theme.mp3", 2048);
-  
+
   background = loadImage("space.jpg");
   alien = loadImage("sprite.png");
   mstr = loadImage("master.png");
@@ -70,7 +70,7 @@ void setup()
       enemy.add(new Enemies(x, y));
     }
   }
-  
+
   theme.loop();
 }
 
@@ -81,18 +81,16 @@ int s = 30;
 
 int[] shelterx = {50, 170, 290, 410};
 
-float timeDelta = 1.0f / 60.0f;
-
 boolean motion = true;
 
 int enemyfire;
 
 void draw()
 {
-  image(background,0,0);
+  image(background, 0, 0);
 
   enemyfire = ((int)random(0, enemy.size()));
-  
+
   if (userMenu == 0)
   {
     displayMenu();
@@ -114,25 +112,31 @@ void draw()
         Shelter s = shelter.get(i);
         s.update();
       } 
-      
-      if(frameCount%420==0)
+
+      if (frameCount%420==0)
       {
-        master.add(new Master(0,10));
+        master.add(new Master(0, 10));
       }
-      
-      for(int i=0;i<master.size();i++)
+
+      for (int i=0; i<master.size(); i++)
       {
         Master m = master.get(i);
-        if(frameCount%5==0)
+        if (frameCount%5==0)
         {
           m.update();
         }
         m.render();
       }
-      
+
+      if (enemy.size()==0)
+      {
+        gameReset();
+      }
+
       for (int i=0; i<enemy.size(); i++)
       {
         Enemies e = enemy.get(i);
+
         if ((frameCount%s==0) && (motion == true))
         {
           e.update();
@@ -141,9 +145,9 @@ void draw()
             motion = false;
             drop();
             counter++;
-            if(counter%2==0)
+            if (counter%2==0)
             {
-              if(s>5)
+              if (s>5)
               {
                 s-=5;
               }
@@ -151,7 +155,7 @@ void draw()
             motion = true;
           }
         }
-        
+
         if (frameCount%240 == 0 )
         {
           if (i == enemyfire)
@@ -173,7 +177,7 @@ void draw()
         eb.render();
         eb.update();
       }
-      if (player.lives<=0)
+      if (player.lives==0)
       {
         gameOver();
       }
@@ -190,7 +194,7 @@ void draw()
 
 void displayMenu()
 {
-  image(background,0,0);
+  image(background, 0, 0);
   textFont(NameFont);
   fill(255);
   textAlign(CENTER);
@@ -205,7 +209,7 @@ void displayMenu()
 
 void howtoplay()
 {
-  image(background,0,0);
+  image(background, 0, 0);
   textFont(ExplainFont);
   fill(255);
   textAlign(CENTER);
@@ -234,6 +238,7 @@ void drop()
  }
  }*/
 
+//Game over screen displayed when user loses game
 void gameOver()
 {
   background(0);
@@ -242,24 +247,31 @@ void gameOver()
   textAlign(CENTER);
   text("GAME OVER", 250, 250);
   textFont(ExplainFont);
-  text("SCORE:"+player.score,250,300);
+  text("SCORE:"+player.score, 250, 300);
   text("Press b for Main Screen", 250, 450);
   if (userMenu == 0)
   {
-    player.lives=3;
-    gameReset();
-    println(player.lives);
     displayMenu();
   }
-  //run through everyting and reset like david said
 }
 
+
+//function to reset the game if the player loses or if all the aliens die
 void gameReset()
 {
+  counter = 1;
+  s = 30;
+
   for (int i = 0; i<enemy.size(); i++)
   {
     Enemies e = enemy.get(i);
     enemy.remove(e);
+  }
+
+  for (int i = 0; i<shelter.size(); i++)
+  {
+    Shelter s = shelter.get(i);
+    shelter.remove(s);
   }
 
   for (int i=0; i<4; i++)
@@ -268,21 +280,20 @@ void gameReset()
     shelter.add(s);
   }
 
-  for (int y = 10; y<90; y+=30)
+  for (int y = 40; y<=130; y+=30)
   {
     for (int x =40; x<=240; x+=60)
     {
       enemy.add(new Enemies(x, y));
     }
   }
-
-  player.lives = 3;
 }
 
 void keyPressed()
 {
   if (key != CODED)
   {
+    //pressing the 1,2,3 and b keys reset the userMenu variable, which triggers different display screens
     if (key == '1')
     {
       userMenu = 1;
@@ -298,7 +309,12 @@ void keyPressed()
     if (key == 'b')
     {
       userMenu = 0;
+      //if b is pressed player.lives is reset to 0 to end the gameOver() method
+      //and the game is reset
+      player.lives=3;
+      gameReset();
     }
+    //a and d keys to move player left and right
     if (key == 'a')
     {
       if (player.pos.x > 20)
@@ -313,13 +329,19 @@ void keyPressed()
         player.pos.add(10, 0);
       }
     }
+    //w and space key shoots
     if (key == 'w')
+    {
+      playerbullet.add(new PlayerBullet());
+    }
+    if (key == ' ')
     {
       playerbullet.add(new PlayerBullet());
     }
   }
   if (key == CODED)
   {
+    //keys to move player left and right
     if (keyCode == LEFT)
     {
       if (player.pos.x > 20)

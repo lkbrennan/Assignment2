@@ -25,7 +25,6 @@ class PlayerBullet
   
   void update()
   {
-    alive += timeDelta;
     pos.sub(speed);
     if (alive > timeToLive)
     {

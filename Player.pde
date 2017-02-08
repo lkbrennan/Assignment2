@@ -36,9 +36,4 @@ class Player extends Health
     shape(tank,pos.x,pos.y);
     println(lives);
   }
-  
-  void hurt()
-  {
-    c=color(255,0,0);
-  }
 }
