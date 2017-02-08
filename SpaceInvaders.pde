@@ -25,6 +25,8 @@ PImage background;
 PImage alien;
 PImage mstr;
 
+//image for booster
+PImage life;
 
 //Game fonts
 PFont NameFont;
@@ -41,6 +43,7 @@ ArrayList<Enemies> enemy;
 ArrayList<PlayerBullet> playerbullet;
 ArrayList<EnemyBullet> enemybullet;
 ArrayList<Master> master;
+ArrayList<Booster> booster;
 
 void setup()
 {
@@ -54,6 +57,7 @@ void setup()
   background = loadImage("space.jpg");
   alien = loadImage("sprite.png");
   mstr = loadImage("master.png");
+  life = loadImage("life.png");
 
   //creating fonts
   NameFont = createFont("AR DESTINE", 55);
@@ -68,7 +72,7 @@ void setup()
   playerbullet = new ArrayList<PlayerBullet>();
   enemybullet = new ArrayList<EnemyBullet>();
   master = new ArrayList<Master>();
-  booster = new ArrayList<Booster>():
+  booster = new ArrayList<Booster>();
 
   //adding shelters
   for (int i=0; i<4; i++)
@@ -106,7 +110,8 @@ boolean motion = true;
 int enemyfire;
 
 //variable to randomly create life booster
-int booster;
+int boosterprob;
+int boosterpos;
 
 void draw()
 {
@@ -140,10 +145,19 @@ void draw()
       if (frameCount%480==0)
       {
         master.add(new Master(0, 10));
-        booster = int(random(0,10));
-        //if(booster>5)
-        //{
-          
+        boosterprob = int(random(0,10));
+        boosterpos = int(random(10,490));
+        if(boosterprob>5)
+        {
+          booster.add(new Booster(boosterpos,430));
+        }  
+      }
+      
+      for(int i =0;i<booster.size();i++)
+      {
+        Booster b = booster.get(i);
+        b.render();
+        b.update();
       }
 
       for (int i=0; i<master.size(); i++)
