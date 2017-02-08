@@ -101,6 +101,9 @@ int userMenu = 0;
 int counter = 1;
 int s = 30;
 
+//level counter
+int levelcounter = 1;
+
 //x values of the shelters
 int[] shelterx = {50, 170, 290, 410};
 
@@ -149,7 +152,7 @@ void draw()
         boosterpos = int(random(10,490));
         if(boosterprob>5)
         {
-          booster.add(new Booster(boosterpos,430));
+          booster.add(new Booster(boosterpos,435));
         }  
       }
       
@@ -181,7 +184,7 @@ void draw()
       {
         Enemies e = enemy.get(i);
 
-        if ((frameCount%s==0) && (motion == true))
+        if ((frameCount%(s/levelcounter)==0) && (motion == true))
         {
           e.update();
           if (e.pos.x+40>=500||e.pos.x+40<=30)
